@@ -1,3 +1,7 @@
+import 'dart:html';
+
+import 'package:app8/screens/home.dart';
+import 'package:app8/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:queen_validators/queen_validators.dart';
@@ -40,50 +44,59 @@ class _Log_inState extends State<Log_in> {
                     Image(fit: BoxFit.fill, image: AssetImage("images/4.png")),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: TextFormField(
-                validator: qValidator([
-                  IsRequired(),
-                  const IsEmail(),
-                  IsIn(["amer@live.com"]),
-                ]),
-                textAlign: TextAlign.center,
-                maxLength: 20,
-                maxLines: 1,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.people),
-                    label: const Text("Email"),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.brown, width: 2),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: TextFormField(
+                      validator: qValidator([
+                        IsRequired(),
+                        const IsEmail(),
+                        IsIn(["amer@live.com"]),
+                      ]),
+                      textAlign: TextAlign.center,
+                      maxLength: 20,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.people),
+                          label: const Text("Email"),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.brown, width: 2),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    )),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30),
-              child: TextFormField(
-                validator: qValidator([
-                  IsRequired(),
-                  IsIn(["1234"])
-                ]),
-                decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 1)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    hintText: "Please enter your Password",
-                    label: const Text(
-                      "Password",
-                      style: TextStyle(fontSize: 25),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0, right: 30),
+                    child: TextFormField(
+                      validator: qValidator([
+                        IsRequired(),
+                        IsIn(["1234"])
+                      ]),
+                      decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.green, width: 1)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          hintText: "Please enter your Password",
+                          label: const Text(
+                            "Password",
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          prefixIcon: const Icon(Icons.people)),
+                      maxLines: 1,
+                      maxLength: 20,
+                      textAlign: TextAlign.center,
+                      obscureText: true,
                     ),
-                    prefixIcon: const Icon(Icons.people)),
-                maxLines: 1,
-                maxLength: 20,
-                textAlign: TextAlign.center,
-                obscureText: true,
+                  ),
+                ],
               ),
             ),
             ElevatedButton(
@@ -106,17 +119,31 @@ class _Log_inState extends State<Log_in> {
                           ),
                           actions: [
                             ElevatedButton(
-                                onPressed: () {}, child: Text("I wil wait")),
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) {
+                                        return const Profile();
+                                      },
+                                    ));
+                                  });
+                                },
+                                child: const Text("I wil wait")),
                             ElevatedButton(
-                                onPressed: () {},
-                                child: Text("no i can't wait"))
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: const Text("no i can't wait"))
                           ],
                         );
                       },
                     );
                   }
                 },
-                child: Text("log-in"))
+                child: const Text("log-in"))
           ],
         ),
       ),
